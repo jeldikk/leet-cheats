@@ -87,5 +87,31 @@ describe("Stack Test Suite", () => {
     });
   });
 
-  describe("Non Empty Stack with limited size Test Suite", () => {});
+  describe("Non Empty Stack with limited size Test Suite", () => {
+    let MAX_STACK_SIZE = 5;
+    beforeEach(() => {
+      stack = new Stack(MAX_STACK_SIZE);
+    });
+    afterEach(() => {
+      stack = null;
+    });
+    test("should have valid maxSize, size, isEmpty(), isFull()", () => {
+      expect(stack.maxSize).toBe(5);
+      expect(stack.size).toBe(0);
+      expect(stack.isEmpty()).toBeTruthy();
+      expect(stack.isFull()).toBeFalsy();
+    });
+
+    test("should throw error when trying to push element on filled stack", () => {
+      // make 5 pushes to fill the stack
+      stack.push(1);
+      stack.push(11);
+      stack.push(111);
+      stack.push(1111);
+      stack.push(11111);
+      expect(stack.size).toEqual(stack.maxSize);
+      expect(stack.isFull()).toBeTruthy();
+      expect(() => stack.push(111111)).toThrow();
+    });
+  });
 });

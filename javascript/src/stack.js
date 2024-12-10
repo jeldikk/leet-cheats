@@ -19,7 +19,17 @@ class Stack {
   }
 
   push(ele) {
-    this._stack.push(ele);
+    if (!this.maxSize) {
+      //unlimited stack case
+      this._stack.push(ele);
+    } else {
+      // limited stack case
+      if (this.size === this.maxSize) {
+        throw new Error("Stack is Full");
+      } else {
+        this._stack.push(ele);
+      }
+    }
   }
 
   pop() {
@@ -40,11 +50,11 @@ class Stack {
   }
 
   isFull() {
-    if (this.size === 0) {
+    if (this.maxSize === 0) {
       console.log("This is unlimited stack");
       return;
     }
-    return this.size === this._stack.length;
+    return this.size === this.maxSize;
   }
 
   clear() {
