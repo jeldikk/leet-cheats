@@ -1,10 +1,17 @@
 class Queue {
   _queue = [];
+  _size;
 
-  constructor() {}
+  constructor(size = 0) {
+    this._size = size;
+  }
 
-  get length() {
+  get size() {
     return this._queue.length;
+  }
+
+  get maxSize() {
+    return this._size;
   }
 
   isEmpty() {
@@ -12,7 +19,15 @@ class Queue {
   }
 
   enqueue(element) {
-    this._queue.push(element);
+    if (!this.maxSize) {
+      this._queue.push(element);
+    } else {
+      if (this.size === this.maxSize) {
+        throw new Error("Queue is Full");
+      } else {
+        this._queue.push(element);
+      }
+    }
   }
 
   dequeue() {
@@ -22,6 +37,8 @@ class Queue {
     const ele = this._queue.shift();
     return ele;
   }
+
+  isFull() {}
 
   clear() {
     this._queue = [];
