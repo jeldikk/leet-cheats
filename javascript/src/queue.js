@@ -1,3 +1,7 @@
+/**
+ *  dequeue <-- <front>[here goes the elements of queue]<back> <-- enqueue
+ */
+
 class Queue {
   _queue = [];
   _size;
@@ -15,9 +19,13 @@ class Queue {
   }
 
   isEmpty() {
-    return this.length === 0;
+    return this.size === 0;
   }
 
+  /**
+   * Insertion of element to the queue
+   * @param {*} element
+   */
   enqueue(element) {
     if (!this.maxSize) {
       this._queue.push(element);
@@ -30,15 +38,50 @@ class Queue {
     }
   }
 
+  /**
+   * Removes element from the queue
+   * @returns
+   */
   dequeue() {
-    if (this._queue.length === 0) {
+    if (this.size === 0) {
       throw new Error("Empty Queue");
     }
     const ele = this._queue.shift();
     return ele;
   }
 
-  isFull() {}
+  /**
+   * acquires the data element available at front without deleting it
+   */
+  front() {
+    if (this.size === 0) {
+      throw new Error("Empty Queue");
+    } else {
+      return this._queue[0];
+    }
+  }
+
+  /**
+   * returns element at rear end without removing it
+   */
+  rear() {
+    if (this.size === 0) {
+      throw new Error("Empty Queue");
+    } else {
+      return this._queue[this.size - 1];
+    }
+  }
+
+  /**
+   * Validates if the queue is full
+   */
+  isFull() {
+    if (!this.maxSize) {
+      console.log("Unlimited Queue");
+      return;
+    }
+    return this.maxSize === this.size;
+  }
 
   clear() {
     this._queue = [];
