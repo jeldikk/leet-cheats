@@ -34,7 +34,29 @@ class LinkedList{
     }
 
     set head(_){
-        throw new Error("head is a readonly property")
+        throw new Error("Head is a readonly property")
+    }
+
+    at(idx){
+        // should return value at specified index
+        if(this.size === 0){
+            throw new Error("Linked List is Empty");
+        }
+        else if(idx > this.size - 1){
+            throw new Error("Index out of bounds")
+        }
+
+        let count = 0;
+        let currentNode = this._root;
+        if(idx === 0){
+            return currentNode.value;
+        }
+        
+        while(count !== idx){
+            currentNode = currentNode.next;
+            count++;
+        }
+        
     }
 
     add(data){
@@ -58,10 +80,40 @@ class LinkedList{
 
     insert(data, idx){
         // insert a node with data at index idx (start from 0)
+        if(idx > this.size - 1){
+            throw new Error("Insufficient List size")
+        }
+
+        let newNode = new Node(data);
+        let count = 0;
+        let currentNode = this._root;
+        while(count < idx - 1){
+            currentNode = currentNode.next;
+            count++;
+        }
+        newNode.next = currentNode.next;
+        currentNode.next = newNode;
     }
 
     delete(idx){
         // delete an item at index idx (start from 0)
+        if(this.size === 0){
+            throw new Error("Linked List is Empty")
+        }
+        else if(idx > this.size - 1){
+            throw new Error('Index out of bounds')
+        }
+
+        let deletingNode = null;
+        let count = 0;
+        let currentNode = this._root;
+        while(count < idx - 1){
+            currentNode = currentNode.next;
+            count++;
+        }
+        deletingNode = currentNode.next;
+        currentNode.next = deletingNode.next;
+        return deletingNode.value;
     }
 
     getList(){
