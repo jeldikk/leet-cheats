@@ -1,6 +1,6 @@
 const Queue = require("../queue");
 
-describe.only("Queue Test Suite", () => {
+describe("Queue Test Suite", () => {
   let queue = null;
   describe("Empty Queue Test suite", () => {
     beforeEach(() => {
